@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/alaga-site/favicon.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <!--
+      Content Security Policy (Todo 22, PRD §9, §11 risk #9).
+
+      Static meta tag — GitHub Pages serves static HTML with no header control,
+      so the CSP is declared here rather than via a response header. Vite
+      rewrites /favicon.svg and the module script to the configured `base`
+      (/alaga/) at build time.
+
+      Directives:
+        default-src 'self'        — everything same-origin by default
+        script-src 'self'         — NO third-party scripts, NO unsafe-inline
+        style-src 'self' 'unsafe-inline'
+                                  — 'unsafe-inline' for styles because Vite
+                                    injects inline styles (dev HMR + prod CSS
+                                    source maps); no third-party styles
+        img-src 'self' data:      — same-origin + inline data: URIs (SVG/favicons)
+        font-src 'self'           — no third-party fonts
+        media-src 'self'          — local audio assets only
+        connect-src 'self' https://alaga-worker.example.workers.dev
+                                  — the ONLY allowed external connection is the
+                                    Cloudflare Worker proxy (PRD §0.3, FR12).
+                                    OpenRouter is reached server-side by the
+                                    Worker and is NEVER in the browser CSP.
+        base-uri 'self'           — prevent <base> injection
+        form-action 'none'        — no forms submit anywhere
+        frame-ancestors 'none'    — clickjacking: no framing
+
+      NOTE: the Worker origin below is a PLACEHOLDER. Todo 23 (deploy) replaces
+      it with the real deployed Worker URL. Until then the Worker call is
+      CSP-blocked in production, which is fail-safe (the app falls back to
+      static utterances — FR12).
+
+      Dev mode: React Refresh (Vite) injects an inline script that
+      script-src 'self' blocks. The CSP is production-oriented; dev runs
+      without CSP enforcement by default (Vite dev server sets its own headers).
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://alaga-worker.example.workers.dev; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+    />
+    <title>Alaga</title>
+    <script type="module" crossorigin src="/alaga-site/assets/index-BHXr_9gE.js"></script>
+    <link rel="stylesheet" crossorigin href="/alaga-site/assets/index-CBjAFWx1.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
